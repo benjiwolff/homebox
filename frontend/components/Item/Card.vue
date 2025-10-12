@@ -91,10 +91,11 @@
 
   const api = useUserApi();
   const preferences = useViewPreferences();
+  const config = useRuntimeConfig();
 
   const imageUrl = computed(() => {
     if (!props.item.imageId) {
-      return "/no-image.jpg";
+      return `${config.public.baseURL}/no-image.jpg`;
     }
     if (props.item.thumbnailId) {
       return api.authURL(`/items/${props.item.id}/attachments/${props.item.thumbnailId}`);
@@ -124,7 +125,9 @@
     },
   });
 
-  const objectContain = computed(() => imageUrl.value !== "/no-image.jpg" && !preferences.value.legacyImageFit);
+  const objectContain = computed(
+    () => imageUrl.value !== `${config.public.baseURL}/no-image.jpg` && !preferences.value.legacyImageFit
+  );
 
   const locationString = computed(
     () => props.locationFlatTree.find(l => l.id === props.item.location?.id)?.treeString || props.item.location?.name

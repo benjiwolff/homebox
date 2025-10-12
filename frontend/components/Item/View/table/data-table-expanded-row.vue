@@ -9,10 +9,11 @@
   }>();
 
   const api = useUserApi();
+  const config = useRuntimeConfig();
 
   const imageUrl = computed(() => {
     if (!props.item.imageId) {
-      return "/no-image.jpg";
+      return `${config.public.baseURL}/no-image.jpg`;
     }
     if (props.item.thumbnailId) {
       return api.authURL(`/items/${props.item.id}/attachments/${props.item.thumbnailId}`);

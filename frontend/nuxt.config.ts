@@ -1,5 +1,7 @@
 import { defineNuxtConfig } from "nuxt/config";
 
+const baseUrl = "/homebox";
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   ssr: false,
@@ -37,8 +39,34 @@ export default defineNuxtConfig({
   },
 
   app: {
+    baseURL: `${baseUrl}/`,
     head: {
-      script: [{ src: "/set-theme.js" }],
+      script: [{ src: `set-theme.js` }],
+      link: [
+        {
+          rel: "manifest",
+          href: "manifest.json",
+        },
+        {
+          rel: "icon",
+          type: "image/svg",
+          href: "favicon.svg",
+        },
+        {
+          rel: "apple-touch-icon",
+          href: "apple-touch-icon.png",
+        },
+        {
+          rel: "mask-icon",
+          href: "mask-icon.svg",
+        },
+      ],
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      baseURL: baseUrl,
     },
   },
 

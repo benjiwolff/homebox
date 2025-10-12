@@ -20,7 +20,8 @@ export type QueryValue = string | string[] | number | number[] | boolean | null 
  * relative URLs in production because the API and client bundle are served from the same server/host.
  */
 export function route(rest: string, params: Record<string, QueryValue> = {}): string {
-  const url = new URL(parts.prefix + rest, parts.host);
+  const config = useRuntimeConfig();
+  const url = new URL(config.public.baseURL + "/" + parts.prefix + rest, parts.host);
 
   for (const [key, value] of Object.entries(params)) {
     if (Array.isArray(value)) {
